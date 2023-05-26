@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="GetCIDByVN.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="获取确认安装ID by 越南"
+                SemanticProperties.HeadingLevel="Level1"
+                SemanticProperties.Description="此程序来自福建-兮"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Border StrokeThickness="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30" />
+                </Border.StrokeShape>
+
+                <Entry Text="{Binding Txtiid}"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Placeholder="请输入安装ID" PlaceholderColor="DarkGray">
+                   
+                </Entry>
+            </Border>
+            <Border StrokeThickness="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30" />
+                </Border.StrokeShape>
+
+                <Entry Text="{Binding Txtcid}"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Placeholder="确认ID" PlaceholderColor="DarkGray"></Entry>
+            </Border>
+
+            <Button
+                x:Name="CounterBtn"
+                Text="Click me"
+                CornerRadius="20"
+                SemanticProperties.Hint="Counts the number of times you click"
+                HorizontalOptions="Center" 
+                IsEnabled="{Binding IsEnable}"
+                >
+                <Button.Behaviors>
+                    <i:EventToCommandBehavior EventName="Clicked" Command="{Binding TxtiidClickCommad}"></i:EventToCommandBehavior>
+                </Button.Behaviors>
+            </Button>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
