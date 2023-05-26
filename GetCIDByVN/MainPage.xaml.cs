@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
-		var builder = MauiApp.CreateBuilder().UseMauiApp<App>().UseMauiCommunityToolkit();
+		//var builder = MauiApp.CreateBuilder().UseMauiApp<App>().UseMauiCommunityToolkit();
         GetCID_VN_ViewMode vm = new GetCID_VN_ViewMode();
 
         this.BindingContext = vm;
