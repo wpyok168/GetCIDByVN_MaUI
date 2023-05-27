@@ -148,15 +148,15 @@ namespace GetCIDByVN
             Dictionary<string, string> cc = new Dictionary<string, string>()
             {
                 {"Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" },
-                {"Accept-Encoding","gzip, deflate, br" },
-                {"ContentType","application/x-www-form-urlencoded;application/json; charset=UTF-8" },
+                //{"Accept-Encoding","gzip, deflate, br" },
+                //{"ContentType","application/x-www-form-urlencoded;application/json; charset=UTF-8" },
                 {"Accept-Language","zh-CN,zh;q=0.9,en;q=0.8,ru;q=0.7,de;q=0.6" },
                 {"User-Agent","Mozilla/5.0 (Linux; Android 10; YAL-AL10 Build/HUAWEIYAL-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/89.0.4356.6 MQQBrowser/6.2 TBS/045434 Mobile Safari/537.36 V1_AND_SQ_8.5.0_1596_YYB_D QQ/8.5.0.5025 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/108 SimpleUISwitch/0 QQTheme/999 InMagicWin/0" }
             };
             using (HttpClientHandler hch = new HttpClientHandler())
             {
                 hch.AllowAutoRedirect = true;
-                hch.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.None | DecompressionMethods.Brotli;
+                hch.AutomaticDecompression =  DecompressionMethods.None | DecompressionMethods.GZip |DecompressionMethods.Brotli;
                 hch.UseCookies = true;
                 hch.CookieContainer = cookieContainer;
 
@@ -174,22 +174,26 @@ namespace GetCIDByVN
                         {
                             if (result.StatusCode == System.Net.HttpStatusCode.OK)
                             {
-                                if (result.ToString().ToLower().Contains("gzip"))
+                                //if (result.ToString().ToLower().Contains("gzip"))
+                                //{
+                                //    using (Stream hcs = await result.Content.ReadAsStreamAsync())
+                                //    {
+                                //        using (GZipStream gs = new GZipStream(hcs, CompressionMode.Decompress))
+                                //        {
+                                //            ret = new StreamReader(gs, Encoding.UTF8).ReadToEnd();
+                                //        }
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    using (HttpContent content = result.Content)
+                                //    {
+                                //        ret = await content.ReadAsStringAsync();
+                                //    }
+                                //}
+                                using (HttpContent content = result.Content)
                                 {
-                                    using (Stream hcs = await result.Content.ReadAsStreamAsync())
-                                    {
-                                        using (GZipStream gs = new GZipStream(hcs, CompressionMode.Decompress))
-                                        {
-                                            ret = new StreamReader(gs, Encoding.UTF8).ReadToEnd();
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    using (HttpContent content = result.Content)
-                                    {
-                                        ret = await content.ReadAsStringAsync();
-                                    }
+                                    ret = await content.ReadAsStringAsync();
                                 }
 
                             }
