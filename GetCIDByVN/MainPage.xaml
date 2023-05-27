@@ -15,14 +15,15 @@
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
-
+<!--
             <Label
                 Text="获取确认安装ID by 越南"
                 SemanticProperties.HeadingLevel="Level1"
                 SemanticProperties.Description="此程序来自福建-兮"
                 FontSize="32"
                 HorizontalOptions="Center" />
-
+-->
+            
             <Border StrokeThickness="1">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="30" />

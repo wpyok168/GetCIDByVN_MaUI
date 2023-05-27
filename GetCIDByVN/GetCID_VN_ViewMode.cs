@@ -30,12 +30,12 @@ namespace GetCIDByVN
 
         private async void GetClipboard(object obj)
         {
-            IsEnable= false;
+            
             if (!string.IsNullOrEmpty(Txtcid))
             {
                 Txtcid = string.Empty;
             }
-            string iid = (await Clipboard.GetTextAsync()).Replace(" ", "").Replace("-", "");
+            string iid = (await Clipboard.GetTextAsync()).Replace("\\u00A0", "").Replace(" ", "").Replace("-", "").Replace("\r", "").Replace("\n", "").Replace("\r\n", "");
             if (Regex.IsMatch(iid, "[\\d]{63}"))
             {
                 Txtiid= Regex.Match(iid, "[\\d]{63}").Value;
@@ -57,7 +57,7 @@ namespace GetCIDByVN
             await Task.Factory.StartNew(async() => {
 
                 Txtcid = "正在获取，请耐心等待下。。。。";
-
+                IsEnable = false;
                 string crtiid = string.Empty;
                 using (Aes aes = Aes.Create())
                 {
