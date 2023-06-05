@@ -159,9 +159,12 @@ namespace GetCIDByVN
                 hch.AutomaticDecompression =  DecompressionMethods.None | DecompressionMethods.GZip |DecompressionMethods.Brotli;
                 hch.UseCookies = true;
                 hch.CookieContainer = cookieContainer;
+                
 
                 using (HttpClient client = new HttpClient(hch))
                 {
+                    client.Timeout = TimeSpan.FromSeconds(420
+                        );
                     foreach (var item in cc)
                     {
                         client.DefaultRequestHeaders.TryAddWithoutValidation(item.Key, item.Value);
