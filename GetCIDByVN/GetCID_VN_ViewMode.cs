@@ -114,6 +114,12 @@ namespace GetCIDByVN
 
                     }
                 }
+                else
+                {
+                    //IsEnable = true;
+                    GetCID(iid);
+                    return;
+                }
                 Dictionary<string, object> dy = JsonSerializer.Deserialize<Dictionary<string, object>>(plaintext);
                 //Successfully  result
 
@@ -163,8 +169,7 @@ namespace GetCIDByVN
 
                 using (HttpClient client = new HttpClient(hch))
                 {
-                    client.Timeout = TimeSpan.FromSeconds(420
-                        );
+                    client.Timeout = TimeSpan.FromSeconds(420);
                     foreach (var item in cc)
                     {
                         client.DefaultRequestHeaders.TryAddWithoutValidation(item.Key, item.Value);
