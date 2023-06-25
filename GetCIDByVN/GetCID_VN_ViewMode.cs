@@ -58,61 +58,63 @@ namespace GetCIDByVN
 
                 Txtcid = "正在获取，请耐心等待下。。。。";
                 IsEnable = false;
-                string crtiid = string.Empty;
-                using (Aes aes = Aes.Create())
-                {
-                    aes.Mode = CipherMode.CBC;
-                    aes.Padding = PaddingMode.PKCS7;
-                    aes.IV = Encoding.UTF8.GetBytes("7061759328313233");
-                    aes.Key = Encoding.UTF8.GetBytes("ditObg4239Ajdk@d");
-                    ICryptoTransform ct = aes.CreateEncryptor(aes.Key, aes.IV);
-                    byte[] encrypted;
-                    using (MemoryStream msEncrypt = new MemoryStream())
-                    {
-                        using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, ct, CryptoStreamMode.Write))
-                        {
-                            using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                            {
-                                swEncrypt.Write(iid);
-                            }
-                            encrypted = msEncrypt.ToArray();
-                        }
-                    }
-                    crtiid = Convert.ToBase64String(encrypted);
+                //string crtiid = string.Empty;
+                //using (Aes aes = Aes.Create())
+                //{
+                //    aes.Mode = CipherMode.CBC;
+                //    aes.Padding = PaddingMode.PKCS7;
+                //    aes.IV = Encoding.UTF8.GetBytes("7061759328313233");
+                //    aes.Key = Encoding.UTF8.GetBytes("ditObg4239Ajdk@d");
+                //    ICryptoTransform ct = aes.CreateEncryptor(aes.Key, aes.IV);
+                //    byte[] encrypted;
+                //    using (MemoryStream msEncrypt = new MemoryStream())
+                //    {
+                //        using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, ct, CryptoStreamMode.Write))
+                //        {
+                //            using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                //            {
+                //                swEncrypt.Write(iid);
+                //            }
+                //            encrypted = msEncrypt.ToArray();
+                //        }
+                //    }
+                //    crtiid = Convert.ToBase64String(encrypted);
 
-                }
-                string url1 = $"https://0xc004c008.com";
-                string url2 = $"https://0xc004c008.com/ajax/get_cid?iids={System.Web.HttpUtility.UrlEncode(crtiid)}";
+                //}
+                //string url1 = $"https://0xc004c008.com";
+                string url2 = $"https://0xc004c008.com/ajax/cidms_api?iids={System.Web.HttpUtility.UrlEncode(iid)}&username=trogiup24h&password=PHO";
+                //string url2 = $"https://0xc004c008.com/ajax/get_cid?iids={System.Web.HttpUtility.UrlEncode(crtiid)}";
                 CookieContainer cc = new CookieContainer();
-                var ret = HttpClientGet(url1, cc, new Action<CookieContainer>((x) => cc = x));
-                ret.Wait();
-                ret = HttpClientGet(url2, cc, new Action<CookieContainer>((x) => cc = x));
+                //var ret = HttpClientGet(url1, cc, new Action<CookieContainer>((x) => cc = x));
+                //ret.Wait();
+                var ret = HttpClientGet(url2, cc, new Action<CookieContainer>((x) => cc = x));
                 ret.Wait();
 
                 string outhtml =ret.Result.ToString();
                 string plaintext = string.Empty;
                 if (!string.IsNullOrEmpty(outhtml))
                 {
-                    using (Aes aes = Aes.Create())
-                    {
-                        aes.Mode = CipherMode.CBC;
-                        aes.Padding = PaddingMode.PKCS7;
-                        aes.IV = Encoding.UTF8.GetBytes("7061759328313233");
-                        aes.Key = Encoding.UTF8.GetBytes("ditObg4239Ajdk@d");
-                        ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+                    //using (Aes aes = Aes.Create())
+                    //{
+                    //    aes.Mode = CipherMode.CBC;
+                    //    aes.Padding = PaddingMode.PKCS7;
+                    //    aes.IV = Encoding.UTF8.GetBytes("7061759328313233");
+                    //    aes.Key = Encoding.UTF8.GetBytes("ditObg4239Ajdk@d");
+                    //    ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-                        using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(outhtml)))
-                        {
-                            using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                            {
-                                using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                                {
-                                    plaintext = srDecrypt.ReadToEnd();
-                                }
-                            }
-                        }
+                    //    using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(outhtml)))
+                    //    {
+                    //        using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    //        {
+                    //            using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    //            {
+                    //                plaintext = srDecrypt.ReadToEnd();
+                    //            }
+                    //        }
+                    //    }
 
-                    }
+                    //}
+                    plaintext = outhtml;
                 }
                 else
                 {
