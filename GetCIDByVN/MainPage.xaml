@@ -9,9 +9,9 @@
     </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout
-            Spacing="25"
+            Spacing="10"
             Padding="30,0"
-            VerticalOptions="Center">
+            VerticalOptions="Start">
             <!--  Source="dotnet_bot.png"  -->
             <Image
                 Source="{Binding Imagesource}"
@@ -34,7 +34,7 @@
                         <ColumnDefinition Width="25*"/>
                     </Grid.ColumnDefinitions>
                     <Entry x:Name="TbVerify" CursorPosition="{Binding EntryCP}" Text="{Binding TxtVerify}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Placeholder="请输入验证码" PlaceholderColor="DarkGray" Grid.Column="0"></Entry>
-                    <Image Source="refresh.png"  SemanticProperties.Description="Verify Refresh"  HeightRequest="30"  HorizontalOptions="Center"  Grid.Column="1">
+                    <Image Source="refresh.png"  SemanticProperties.Description="Verify Refresh"  HeightRequest="40"  HorizontalOptions="Center"  Grid.Column="1">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ImageClickCommad}"></TapGestureRecognizer>
                         </Image.GestureRecognizers>
@@ -48,27 +48,23 @@
             </Grid>
 
             <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="50"></RowDefinition>
+                    <RowDefinition  Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
-                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+
                 </Grid.ColumnDefinitions>
-                <Label x:Name="label1" Text="ă" Grid.Column="0" >
+                <Label x:Name="label1" Text="ă" Grid.Row="0" Grid.Column="0" FontSize="Large">
                     <Label.GestureRecognizers>
                         <!--
                             <TapGestureRecognizer  Command="{Binding InsertTxtCommand}" CommandParameter="{Binding Source={Reference TbVerify}}"></TapGestureRecognizer>
@@ -84,7 +80,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label2" Text="â" Grid.Column="1">
+                <Label x:Name="label2" Text="â"  Grid.Row="0" Grid.Column="1"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -96,7 +92,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label3" Text="à" Grid.Column="2">
+                <Label x:Name="label3" Text="à"  Grid.Row="0" Grid.Column="2"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -108,7 +104,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label4" Text="á" Grid.Column="3">
+                <Label x:Name="label4" Text="á"  Grid.Row="0" Grid.Column="3"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -120,7 +116,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label5" Text="ạ" Grid.Column="4">
+                <Label x:Name="label5" Text="ạ"  Grid.Row="0" Grid.Column="4"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -132,7 +128,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label6" Text="ô" Grid.Column="5">
+                <Label x:Name="label6" Text="ô"  Grid.Row="0" Grid.Column="5"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -144,7 +140,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label7" Text="ò" Grid.Column="6">
+                <Label x:Name="label7" Text="ò"  Grid.Row="0" Grid.Column="6"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -156,7 +152,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label8" Text="ó" Grid.Column="7">
+                <Label x:Name="label8" Text="ó"  Grid.Row="0" Grid.Column="7"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -168,7 +164,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label9" Text="ọ" Grid.Column="8">
+                <Label x:Name="label9" Text="ọ"  Grid.Row="0" Grid.Column="8"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -180,7 +176,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label10" Text="ù" Grid.Column="9">
+                <Label x:Name="label10" Text="ù"  Grid.Row="1" Grid.Column="0"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -192,7 +188,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label11" Text="ú" Grid.Column="10">
+                <Label x:Name="label11" Text="ú"  Grid.Row="1" Grid.Column="1"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -204,7 +200,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label12" Text="ư" Grid.Column="11">
+                <Label x:Name="label12" Text="ư"  Grid.Row="1" Grid.Column="2"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -216,7 +212,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label13" Text="ê" Grid.Column="12">
+                <Label x:Name="label13" Text="ê" Grid.Row="1" Grid.Column="3" FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -228,7 +224,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label14" Text="è" Grid.Column="13">
+                <Label x:Name="label14" Text="è" Grid.Row="1" Grid.Column="4" FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -240,7 +236,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label15" Text="é" Grid.Column="14">
+                <Label x:Name="label15" Text="é"  Grid.Row="1" Grid.Column="5" FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -252,7 +248,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label16" Text="ẹ" Grid.Column="15">
+                <Label x:Name="label16" Text="ẹ" Grid.Row="1" Grid.Column="6" FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -264,7 +260,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label17" Text="ì" Grid.Column="16">
+                <Label x:Name="label17" Text="ì" Grid.Row="1" Grid.Column="7" FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
@@ -276,7 +272,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                <Label x:Name="label18" Text="í" Grid.Column="17">
+                <Label x:Name="label18" Text="í" Grid.Row="1" Grid.Column="8" FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
