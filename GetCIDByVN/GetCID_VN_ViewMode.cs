@@ -1,24 +1,37 @@
 ﻿using MVVM;
+using System.Diagnostics;
 using System.IO.Compression;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace GetCIDByVN
 {
     public class GetCID_VN_ViewMode:ViewModeBase
     {
+        private static CookieContainer cc = new CookieContainer();
         private string txtiid = string.Empty;
         private string txtcid = string.Empty;
         private RelayCommand txtiidClickCommad;
         private bool isEnable = true;
+        private string  imagesource = string.Empty;
+        private RelayCommand imageClickCommad;
+        private string txtVerify = string.Empty;
+        private RelayCommand verifyClickCommad;
+        private RelayCommand insertTxtCommand;
+        private int entryCP = 0;
+        private string statusVerify = "首次启动需要进行验证";
 
 
         public GetCID_VN_ViewMode()
         {
-            TxtiidClickCommad= new RelayCommand(GetClipboard);
+            TxtiidClickCommad = new RelayCommand(GetClipboard);
+            ImageClickCommad = new RelayCommand(GetVerifyImage);
+            InsertTxtCommand = new RelayCommand(InsertTxt);
+            VerifyClickCommad = new RelayCommand(SummitVerify);
         }
 
         public string Txtiid { get => txtiid; set { txtiid = value; RaisePropertyChanged(); } }
@@ -26,7 +39,76 @@ namespace GetCIDByVN
         public bool IsEnable { get => isEnable; set { isEnable = value; RaisePropertyChanged(); } }
 
         public RelayCommand TxtiidClickCommad { get => txtiidClickCommad; set => txtiidClickCommad = value; }
-        
+        public string Imagesource { get => imagesource; set { imagesource = value; RaisePropertyChanged(); }}
+
+        public RelayCommand ImageClickCommad { get => imageClickCommad; set => imageClickCommad = value; }
+        public string TxtVerify { get => txtVerify; set { txtVerify = value; RaisePropertyChanged(); } }
+
+        public RelayCommand VerifyClickCommad { get => verifyClickCommad; set => verifyClickCommad = value; }
+        public RelayCommand InsertTxtCommand { get => insertTxtCommand; set => insertTxtCommand = value; }
+        public int EntryCP { get => entryCP; set { entryCP = value; RaisePropertyChanged(); } }
+
+        public string StatusVerify { get => statusVerify; set { statusVerify = value; RaisePropertyChanged(); } }
+
+        private async void SummitVerify(object obj)
+        {
+            await Task.Run(async () => {
+                string codeAes = AesEncrypt(TxtVerify);
+                string code = System.Web.HttpUtility.UrlEncode(codeAes);
+                string url = $"https://0xc004c008.com/ajax/cidms_verify_captcha?code={code}";
+                var ret = await HttpClientGet(url, cc, new Action<CookieContainer>((x) => cc = x));
+                string outhtml = ret.ToString();
+                if (!string.IsNullOrEmpty(outhtml))
+                {
+                    string status = AesDecrypt(outhtml);
+                    if (status.Equals("1"))
+                    {
+                        StatusVerify = "验证成功";
+                    }
+                    else 
+                    {
+                        TxtVerify = string.Empty;
+                        StatusVerify = "无效验证码，请重新验证";
+                    }
+                }
+                else
+                {
+                    //IsEnable = true;
+                    return;
+                }
+            });
+        }
+
+        private async void InsertTxt(object obj)
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    return;
+                }
+
+                await Task.Run(() => {
+                    object[] objects = obj as object[];
+
+                    Entry entry = objects[0] as Entry;
+                    Label lbl = objects[1] as Label;
+                    entry.Unfocus();
+                    int index = entry.CursorPosition;
+                    Debug.Print("index：" + index.ToString());
+                    TxtVerify = TxtVerify.Insert(index, lbl.Text);
+                    //TxtVerify = TxtVerify.Insert(index, lbl.Text);
+                    EntryCP = index + 1;
+                    entry.CursorPosition = EntryCP;
+                    //Debug.Print("EntryCP：" + EntryCP.ToString());
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+        }
 
         private async void GetClipboard(object obj)
         {
@@ -58,63 +140,34 @@ namespace GetCIDByVN
 
                 Txtcid = "正在获取，请耐心等待下。。。。";
                 IsEnable = false;
-                //string crtiid = string.Empty;
-                //using (Aes aes = Aes.Create())
-                //{
-                //    aes.Mode = CipherMode.CBC;
-                //    aes.Padding = PaddingMode.PKCS7;
-                //    aes.IV = Encoding.UTF8.GetBytes("7061759328313233");
-                //    aes.Key = Encoding.UTF8.GetBytes("ditObg4239Ajdk@d");
-                //    ICryptoTransform ct = aes.CreateEncryptor(aes.Key, aes.IV);
-                //    byte[] encrypted;
-                //    using (MemoryStream msEncrypt = new MemoryStream())
-                //    {
-                //        using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, ct, CryptoStreamMode.Write))
-                //        {
-                //            using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                //            {
-                //                swEncrypt.Write(iid);
-                //            }
-                //            encrypted = msEncrypt.ToArray();
-                //        }
-                //    }
-                //    crtiid = Convert.ToBase64String(encrypted);
-
-                //}
-                //string url1 = $"https://0xc004c008.com";
-                string url2 = $"https://0xc004c008.com/ajax/cidms_api?iids={System.Web.HttpUtility.UrlEncode(iid)}&username=trogiup24h&password=PHO";
-                //string url2 = $"https://0xc004c008.com/ajax/get_cid?iids={System.Web.HttpUtility.UrlEncode(crtiid)}";
-                CookieContainer cc = new CookieContainer();
-                //var ret = HttpClientGet(url1, cc, new Action<CookieContainer>((x) => cc = x));
-                //ret.Wait();
-                var ret = HttpClientGet(url2, cc, new Action<CookieContainer>((x) => cc = x));
+                string crtiid = string.Empty;
+                crtiid = AesEncrypt(iid);
+                string url1 = $"https://0xc004c008.com";
+                //string url2 = $"https://0xc004c008.com/ajax/cidms_api?iids={System.Web.HttpUtility.UrlEncode(iid)}&username=trogiup24h&password=PHO";
+                string url2 = $"https://0xc004c008.com/ajax/get_cid?iids={System.Web.HttpUtility.UrlEncode(crtiid)}";
+                Task<string> ret;
+                if (cc.Count == 0)
+                {
+                    ret = HttpClientGet(url1, cc, new Action<CookieContainer>((x) => cc = x));
+                    ret.Wait();
+                }
+                
+                ret = HttpClientGet(url2, cc, new Action<CookieContainer>((x) => cc = x));
                 ret.Wait();
 
                 string outhtml =ret.Result.ToString();
                 string plaintext = string.Empty;
                 if (!string.IsNullOrEmpty(outhtml))
                 {
-                    //using (Aes aes = Aes.Create())
-                    //{
-                    //    aes.Mode = CipherMode.CBC;
-                    //    aes.Padding = PaddingMode.PKCS7;
-                    //    aes.IV = Encoding.UTF8.GetBytes("7061759328313233");
-                    //    aes.Key = Encoding.UTF8.GetBytes("ditObg4239Ajdk@d");
-                    //    ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                    //    using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(outhtml)))
-                    //    {
-                    //        using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    //        {
-                    //            using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                    //            {
-                    //                plaintext = srDecrypt.ReadToEnd();
-                    //            }
-                    //        }
-                    //    }
-
-                    //}
-                    plaintext = outhtml;
+                    plaintext = AesDecrypt(outhtml);
+                    //"For security purposes, Please verify the code first!"
+                    if (plaintext.Contains("Please verify the code first"))
+                    {
+                        StatusVerify = "请先进行验证后再获取确认ID";
+                        GetVerifyImage(null);
+                        IsEnable = true;
+                        return;
+                    }
                 }
                 else
                 {
@@ -147,9 +200,90 @@ namespace GetCIDByVN
                 //}));
 
             });
-
         }
-        
+
+        public  async void GetVerifyImage(object obj)
+        {
+            await  Task.Run(async () => {
+                TxtVerify = string.Empty;
+                string url1 = $"https://0xc004c008.com";
+                string url2 = "https://0xc004c008.com/ajax/cidms_refresh_captcha";
+                Task<string> ret;
+                if (cc.Count == 0)
+                {
+                    ret = HttpClientGet(url1, cc, new Action<CookieContainer>((x) => cc = x));
+                    ret.Wait();
+                }
+                var outhtml = await HttpClientGet(url2, cc, new Action<CookieContainer>(x => cc = x));
+                
+                string imaestr = "data:image/png;base64," + AesDecrypt(outhtml.ToString());
+                Imagesource = imaestr;
+            });
+            
+            //Imagesource = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAoCAYAAAA16j4lAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAQkSURBVHhe7Zk7SyNRFIDd3+D+gc2Wa7lgKWm2iwumcrvAFqKioI0gwUYxKm4aQQQN8dEk4AMJEosgvpNCxCZbbOwEZX/Bdmdzk5m5507OvCdjMrnFB5J7JnOTz/O4k75/f15AEl6k4JAjBYccKTjkSMEhRwoOOVJwyJGCQ44UHHK6XPAjZGMx+PKZZnT9kbimt+j6DL6YouViell0RwuuzXyEzEA/ZGYOyXWN3DIXGstCjcjsXpX8boI1eQOTdSFUTAUe4lYxTWrrE7TIqyyMapInIHslXtcLeBacin4lXzfnEEoDqrxv8HBtERNPw9+WdRWcrYREnN1TRXGtB3AtmIlVodZNuU7DkZU8HGNaoouwoApslGeTdSnYPp4E5yeV7O2HUp5YtxvDsMzQNgs+HoNP0Q8tRJJ5Oj5g3kVwu/rvQo6IQf8A/g5aZcgk+ki5KpHoGJTIa4PDF8HOJPPeepSuEOt1bJdn3H+X4aJlHWUvue6e2uaQochSkouPJNZM/0G98rq9BanvqSbDOajq1j0NWa4Ea6XXaLjC2WsUo2LSf4UJ2iC7XZOH+WhTIp2lPLsj0SHI3OrX/aAMJ8OKWAO5jMAFW5Zn1HsdnX+1/urgDFzeg8SPERisk8g6KN+3axBXBNshvlmm38ct90XYQXJPTokYBd8E25OMspOSh0uzRe9lCOffGP+bY3X2PYclRXCD2T14JuN0vKdgLHd4C27uiRiEJ8EMZ4LR2VYvWJBrPjljsTQOH2qgTB5cPadjMEhwu3usCCrLNuQyfBVsLRk/4OAZysu2tVxxcML4O0SZw3swY/7YeN2/HlyFm3FFrkVZxngWzHAiWS9TxGqoaj/P2WmlZE/DQZmOYahTtP6ze4W6V4PTnCY3NV6EVyqGwBfBDNsbrUNJNjwytYvCitZ7+YD1CAezSqlWBOs/V5Dw/TovzSo2BZegkPgJvxhzeXgjY+gvg4rrBC5XVZEj5L47CbfZy7AQ/AR3c4rYBhvwm4zjUBtkULFBQu3JK9R9vELdp4Ei2G7vVTEWXMnDrio2XaJjDCA3qIO6zi3U+/sFdb+gEPbiojwzfOvBFMIGO5jGfvFRqc5SofXzmIJ+dPDz6MT2x/sv/bTKDGPBZxuoNDvPYj36LzVo+F7wILUCly2vdZZgYcBy2H8ZhGA0UOkonOlj3UNJcAv1/sboJ+VWua4Etw08QXvOYL3c+lCFM9ljFncK/KyLWD0XXu8cwegBh7ceLE7MPFvtHZG6DXxMUs+8dh9yBE11URFcZ2e7SsYYoQl+209qcnf3n3iQh2la4hPCDwzOyrQiGGWvLkuxeD97sMQZOItTi/Z/nVIEozKMsxRnb4jKc3firhc3BVMihWNSEu4q4oWS7qC1RLcg5XYz2pBFnn9lWe56kGBJ+HiB/8SWnGz0BBSvAAAAAElFTkSuQmCC";
+        }
+
+        /// <summary>
+        /// Aes解密
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        private string AesDecrypt(string content)
+        {
+            string outstr =string.Empty;
+            using (Aes aes = Aes.Create())
+            {
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+                aes.Key = Encoding.UTF8.GetBytes("ditObg4239Ajdk@d");
+                aes.IV = Encoding.UTF8.GetBytes("7061759328313233");
+                ICryptoTransform cy = aes.CreateDecryptor(aes.Key, aes.IV);
+                using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(content)))
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, cy, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader sr = new StreamReader(cs))
+                        {
+                            outstr = sr.ReadToEnd();
+                        }
+                    }
+                }
+            }
+            return outstr;
+        }
+        /// <summary>
+        /// Aes加密
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        private string AesEncrypt(string content) 
+        {
+            string outstr = string.Empty;
+            using (Aes aes = Aes.Create())
+            {
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+                aes.Key = Encoding.UTF8.GetBytes("ditObg4239Ajdk@d");
+                aes.IV = Encoding.UTF8.GetBytes("7061759328313233");
+                ICryptoTransform cy = aes.CreateEncryptor(aes.Key, aes.IV);
+                byte[] encryptbyte;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, cy, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter sr = new StreamWriter(cs))
+                        {
+                            sr.Write(content); 
+                        }
+                        encryptbyte = ms.ToArray();
+                    }
+                }
+                outstr = Convert.ToBase64String(encryptbyte);
+            }
+            return outstr;
+        }
+
+
         private async Task<string> HttpClientGet (string url, CookieContainer cookieContainer, Action<CookieContainer> retCookieContainer)
         {
             string ret = string.Empty;

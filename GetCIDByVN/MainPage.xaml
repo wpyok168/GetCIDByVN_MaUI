@@ -2,20 +2,296 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:i="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:data="clr-namespace:GetCIDByVN"
              x:Class="GetCIDByVN.MainPage">
-
+    <ContentPage.Resources>
+        <data:MultiParamterConverter x:Key="mypmConverter"></data:MultiParamterConverter>
+    </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-
+            <!--  Source="dotnet_bot.png"  -->
             <Image
-                Source="dotnet_bot.png"
+                Source="{Binding Imagesource}"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
-<!--
+           
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Text="{Binding StatusVerify}" TextColor="Red"></Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Entry x:Name="TbVerify" CursorPosition="{Binding EntryCP}" Text="{Binding TxtVerify}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Placeholder="请输入验证码" PlaceholderColor="DarkGray" Grid.Column="0"></Entry>
+                    <Image Source="refresh.png"  SemanticProperties.Description="Verify Refresh"  HeightRequest="30"  HorizontalOptions="Center"  Grid.Column="1">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ImageClickCommad}"></TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Button x:Name="VerifyBtn" Text="Verify"  CornerRadius="20"  SemanticProperties.Hint="验证" HorizontalOptions="Center"   IsEnabled="{Binding IsEnable}"  Grid.Column="3">
+                        <Button.Behaviors>
+                            <i:EventToCommandBehavior EventName="Clicked" Command="{Binding VerifyClickCommad}"></i:EventToCommandBehavior>
+                        </Button.Behaviors>
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                    <ColumnDefinition Width="18"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="label1" Text="ă" Grid.Column="0" >
+                    <Label.GestureRecognizers>
+                        <!--
+                            <TapGestureRecognizer  Command="{Binding InsertTxtCommand}" CommandParameter="{Binding Source={Reference TbVerify}}"></TapGestureRecognizer>
+                            <TapGestureRecognizer  Command="{Binding InsertTxtCommand}" CommandParameter="{Binding Source={RelativeSource Self}}"></TapGestureRecognizer>
+                            -->
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label1}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label2" Text="â" Grid.Column="1">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label2}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label3" Text="à" Grid.Column="2">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label3}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label4" Text="á" Grid.Column="3">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label4}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label5" Text="ạ" Grid.Column="4">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label5}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label6" Text="ô" Grid.Column="5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label6}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label7" Text="ò" Grid.Column="6">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label7}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label8" Text="ó" Grid.Column="7">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label8}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label9" Text="ọ" Grid.Column="8">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label9}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label10" Text="ù" Grid.Column="9">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label10}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label11" Text="ú" Grid.Column="10">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label11}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label12" Text="ư" Grid.Column="11">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label12}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label13" Text="ê" Grid.Column="12">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label13}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label14" Text="è" Grid.Column="13">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label14}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label15" Text="é" Grid.Column="14">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label15}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label16" Text="ẹ" Grid.Column="15">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label16}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label17" Text="ì" Grid.Column="16">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label17}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="label18" Text="í" Grid.Column="17">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
+                            <TapGestureRecognizer.CommandParameter>
+                                <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                                    <Binding Source="{Reference TbVerify}"></Binding>
+                                    <Binding Source="{Reference label18}"></Binding>
+                                </MultiBinding>
+                            </TapGestureRecognizer.CommandParameter>
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+
+            <!--
             <Label
                 Text="获取确认安装ID by 越南"
                 SemanticProperties.HeadingLevel="Level1"
