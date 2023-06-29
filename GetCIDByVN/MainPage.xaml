@@ -66,6 +66,7 @@
                     <ColumnDefinition ></ColumnDefinition>
 
                 </Grid.ColumnDefinitions>
+                <!--
                 <Button Text="ă" Grid.Row="0" Grid.Column="0" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource Key=mypmConverter}">
@@ -210,13 +211,14 @@
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
-                <!--
+                -->
+
                 <Label x:Name="label1" Text="ă" Grid.Row="0" Grid.Column="0" FontSize="Large">
                     <Label.GestureRecognizers>
-                        
+                        <!--
                             <TapGestureRecognizer  Command="{Binding InsertTxtCommand}" CommandParameter="{Binding Source={Reference TbVerify}}"></TapGestureRecognizer>
                             <TapGestureRecognizer  Command="{Binding InsertTxtCommand}" CommandParameter="{Binding Source={RelativeSource Self}}"></TapGestureRecognizer>
-                            
+                        -->    
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
                                 <MultiBinding Converter="{StaticResource Key=mypmConverter}">
@@ -433,7 +435,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
-                -->
+
             </Grid>
 
 
