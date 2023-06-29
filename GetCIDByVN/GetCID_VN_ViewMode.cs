@@ -92,7 +92,8 @@ namespace GetCIDByVN
                     object[] objects = obj as object[];
 
                     Entry entry = objects[0] as Entry;
-                    Label lbl = objects[1] as Label;
+                    //Label lbl = objects[1] as Label;
+                    Button lbl = objects[1] as Button;
                     entry.Unfocus();
                     int index = entry.CursorPosition;
                     Debug.Print("index：" + index.ToString());

@@ -12,6 +12,7 @@
             <ResourceDictionary>
                 <SolidColorBrush x:Key="WindowCaptionBackground">#fff</SolidColorBrush>
                 <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled">#fff</SolidColorBrush>
+                <local:MultiParamterConverter x:Key="mypmConverter"></local:MultiParamterConverter>
             </ResourceDictionary>
 
         </ResourceDictionary>

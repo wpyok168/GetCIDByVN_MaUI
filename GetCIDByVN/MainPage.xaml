@@ -4,9 +4,11 @@
              xmlns:i="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:data="clr-namespace:GetCIDByVN"
              x:Class="GetCIDByVN.MainPage">
+    <!--  用app.xml 注册多个页面可用
     <ContentPage.Resources>
         <data:MultiParamterConverter x:Key="mypmConverter"></data:MultiParamterConverter>
     </ContentPage.Resources>
+    -->
     <ScrollView>
         <VerticalStackLayout
             Spacing="10"
@@ -33,7 +35,7 @@
                         <ColumnDefinition Width="25*" />
                         <ColumnDefinition Width="25*"/>
                     </Grid.ColumnDefinitions>
-                    <Entry x:Name="TbVerify" CursorPosition="{Binding EntryCP}" Text="{Binding TxtVerify}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Placeholder="请输入验证码" PlaceholderColor="DarkGray" Grid.Column="0"></Entry>
+                    <Entry x:Name="TbVerify" CursorPosition="{Binding EntryCP}" Text="{Binding TxtVerify}" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Placeholder="请输入验证码" PlaceholderColor="DarkGray" Grid.Column="0"></Entry>
                     <Image Source="refresh.png"  SemanticProperties.Description="Verify Refresh"  HeightRequest="40"  HorizontalOptions="Center"  Grid.Column="1">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ImageClickCommad}"></TapGestureRecognizer>
@@ -64,12 +66,157 @@
                     <ColumnDefinition ></ColumnDefinition>
 
                 </Grid.ColumnDefinitions>
+                <Button Text="ă" Grid.Row="0" Grid.Column="0" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="â" Grid.Row="0" Grid.Column="1" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="à" Grid.Row="0" Grid.Column="2" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="á" Grid.Row="0" Grid.Column="3" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ạ" Grid.Row="0" Grid.Column="4" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ô" Grid.Row="0" Grid.Column="5" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ò" Grid.Row="0" Grid.Column="6" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ó" Grid.Row="0" Grid.Column="7" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ọ" Grid.Row="0" Grid.Column="8" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ù" Grid.Row="1" Grid.Column="0" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ú" Grid.Row="1" Grid.Column="1" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ư" Grid.Row="1" Grid.Column="2" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ê" Grid.Row="1" Grid.Column="3" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="è" Grid.Row="1" Grid.Column="4" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="é" Grid.Row="1" Grid.Column="5" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ẹ" Grid.Row="1" Grid.Column="6" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="ì" Grid.Row="1" Grid.Column="7" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Text="í" Grid.Row="1" Grid.Column="8" FontSize="Large" BackgroundColor="GhostWhite" TextColor="Black" Command="{Binding InsertTxtCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource Key=mypmConverter}">
+                            <Binding Source="{Reference TbVerify}"></Binding>
+                            <Binding Source="{RelativeSource Mode=Self}"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <!--
                 <Label x:Name="label1" Text="ă" Grid.Row="0" Grid.Column="0" FontSize="Large">
                     <Label.GestureRecognizers>
-                        <!--
+                        
                             <TapGestureRecognizer  Command="{Binding InsertTxtCommand}" CommandParameter="{Binding Source={Reference TbVerify}}"></TapGestureRecognizer>
                             <TapGestureRecognizer  Command="{Binding InsertTxtCommand}" CommandParameter="{Binding Source={RelativeSource Self}}"></TapGestureRecognizer>
-                            -->
+                            
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
                             <TapGestureRecognizer.CommandParameter>
                                 <MultiBinding Converter="{StaticResource Key=mypmConverter}">
@@ -80,6 +227,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
+                
                 <Label x:Name="label2" Text="â"  Grid.Row="0" Grid.Column="1"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
@@ -92,6 +240,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
+                
                 <Label x:Name="label3" Text="à"  Grid.Row="0" Grid.Column="2"  FontSize="Large">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding InsertTxtCommand}">
@@ -284,6 +433,7 @@
                         </TapGestureRecognizer>
                     </Label.GestureRecognizers>
                 </Label>
+                -->
             </Grid>
 
 
